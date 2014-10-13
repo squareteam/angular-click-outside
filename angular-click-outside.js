@@ -14,7 +14,9 @@ directive('stClickOutside', ['$document', '$parse', function($document, $parse) 
           return;
         }
 
-        el.hide();
+        if (el.is(':visible')) {
+          el.hide(); 
+        }
       };
 
       $document.on('click', handler);
