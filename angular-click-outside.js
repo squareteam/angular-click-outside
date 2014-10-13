@@ -1,25 +1,20 @@
-angular.module('tw.directives.clickOutside', []).
-directive('twClickOutside', ['$document', '$parse', function($document, $parse) {
+angular.module('st.clickOutside', []).
+directive('stClickOutside', ['$document', '$parse', function($document, $parse) {
   return {
     link: function(scope, el, attr) {
-      if (!attr.twClickOutside) {
-        return;
-      }
-
       var ignore;
       if (attr.ignoreIf) {
         ignore = $parse(attr.ignoreIf);
       }
 
       var nakedEl = el[0];
-      var fn = $parse(attr.twClickOutside);
 
       var handler = function(e) {
         if (nakedEl === e.target || nakedEl.contains(e.target) || (ignore && ignore(scope))) {
           return;
         }
 
-        scope.$apply(fn);
+        el.hide();
       };
 
       $document.on('click', handler);
